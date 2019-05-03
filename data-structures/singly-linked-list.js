@@ -5,7 +5,6 @@ class Node {
   }
 }
 
-
 class SinglyLinkedList {
   constructor(datas){
     this.head = null;
@@ -82,8 +81,11 @@ class SinglyLinkedList {
   }
 
   get(index){
-    if(index < 0 || index > this.length - 1){
+    if(index >= this.length || index < (this.length * -1)){
       return undefined;
+    }
+    if(index < 0){
+      index = this.length + index;
     }
     else{
       let node = this.head;
@@ -149,15 +151,6 @@ class SinglyLinkedList {
       return node.data;
     }
   }
-
-
-
 }
 
-
-
-let myList = new SinglyLinkedList('big', 2, 'bog', 'bruh', 5, 'algo');
-
-
-console.log(myList.get(-6));
-
+module.exports = { Node, SinglyLinkedList }
