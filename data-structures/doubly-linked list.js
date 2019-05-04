@@ -179,4 +179,4 @@ class DoublyLinkedList {
   }
 }
 
-module.exports = { Node, DoublyLinkedList }
+module.exports = DoublyLinkedList;
