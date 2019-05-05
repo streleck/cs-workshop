@@ -7,27 +7,17 @@ const Tree = require('./data-structures/tree');
 
 
 
-let tree = new Tree();
+let bst = new BinarySearchTree();
 
-tree.insert('jokic');
+bst.insert(8);
+bst.insert(3);
+bst.insert(1);
+bst.insert(5);
+bst.insert(12);
+bst.insert(9);
+bst.insert(16);
 
-tree.insert('murray', tree.root);
-
-
-tree.insert('harris', tree.root);
-
-tree.insert('barton', tree.breadthFind('murray'));
-
-tree.insert('craig', tree.breadthFind('murray'));
-
-tree.insert('millsap', tree.breadthFind('harris'));
-
-tree.insert('plumlee', tree.breadthFind('harris'));
-
-
-
-
-console.log(tree.breadthFind('harris').children);
+bst.getAllData().print();
 
 
 

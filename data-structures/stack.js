@@ -6,10 +6,13 @@ class Node {
 }
 
 class Stack {
-  constructor(){
+  constructor(datas){
     this.first = null;
     this.last = null;
     this.size = 0;
+    for(let i=0; i<arguments.length; i++){
+      this.push(arguments[i]);
+    }
   }
 
   push(data){
@@ -38,6 +41,14 @@ class Stack {
     }
   }
 
+  forEach(callback){
+    let node = this.first;
+    while(node){
+      callback(node);
+      node = node.next;
+    }
+  }
+
   print(){
     if(this.size === 0){
       console.log('This stack is empty');
@@ -46,7 +57,7 @@ class Stack {
       console.log('size:', this.size);
       let node = this.first;
       for(let i=0; i<this.size; i++){
-        console.log(i + ':', node);
+        console.log(i + ':', node.data);
         node = node.next;
       }
     }

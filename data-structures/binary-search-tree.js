@@ -1,3 +1,5 @@
+const Queue = require('./queue');
+
 class Node {
   constructor(data){
     this.data = data;
@@ -5,7 +7,6 @@ class Node {
     this.right = null;
   }
 }
-
 
 class BinarySearchTree {
   constructor(){
@@ -74,7 +75,20 @@ class BinarySearchTree {
     }
   }
 
-  
+  getAllData(root){
+    if(!root){
+      root = this.root
+    }
+    let allData = new Queue();    
+    if(root.left){
+      allData.concat(this.getAllData(root.left));
+    }
+    allData.enqueue(root.data);
+    if(root.right){
+      allData.concat(this.getAllData(root.right));
+    }
+    return allData;
+  }
 
 }
 

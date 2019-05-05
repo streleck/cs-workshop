@@ -45,16 +45,29 @@ class Tree {
 
   print(root){
     if(!root){
-      let root = this.root;
+      root = this.root;
     }
-    let queue = new Queue(root);
-    let separator = '|';
-    let depth = 0;
+    let thisGeneration = new Queue(root);
+    let nextGeneration = new Queue();
+    let degree = 0;
+    let thisRow = degree + ')';
+    while(thisGeneration.size > 0){
+      let nextNode = thisGeneration.dequeue();
+      thisRow += ' ' + nextNode.data + ',';
+      let children = nextNode.children.copy();
+      children.forEach((child) => {
+        nextGeneration.enqueue(child.data);
+      })
+      if(thisGeneration.size === 0){
+        thisRow = thisRow.substr(0, thisRow.length-1); // to remove trailing comma
+        console.log(thisRow);
+        thisGeneration = nextGeneration;
+        nextGeneration = new Queue();
+        degree++;
+        thisRow = degree + ')';
+      } 
+    }
 
-    while(queue.size > 0){
-      let thisRow = depth + ') ';
-      let nextNode = queue.dequeue();
-    }
   }
 
 }

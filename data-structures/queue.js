@@ -6,10 +6,13 @@ class Node {
 }
 
 class Queue {
-  constructor(){
+  constructor(datas){
     this.first = null;
     this.last = null;
     this.size = 0;
+    for(let i=0; i<arguments.length; i++){
+      this.enqueue(arguments[i])
+    }
   }
 
   enqueue(data){
@@ -40,17 +43,44 @@ class Queue {
     }
   }
 
+  forEach(callback){
+    let node = this.first;
+    while(node){
+      callback(node);
+      node = node.next;
+    }
+  }
+
+  copy(){
+    let newCopy = new Queue();
+    this.forEach((node) =>{
+      newCopy.enqueue(node.data);
+    });
+    return newCopy;
+  }
+
+  concat(secondQueue){
+    secondQueue.forEach((node) =>{
+      this.enqueue(node.data);
+    })
+  }
+
   print(){
     if(this.size === 0){
       console.log('This stack is empty');
     }
     else{
-      console.log('size:', this.size);
-      let node = this.first;
-      for(let i=0; i<this.size; i++){
-        console.log(i + ':', node);
-        node = node.next;
-      }
+      let printLine = '[';
+      this.forEach((node)=> {
+        printLine += node.data
+        if(node.next){
+          printLine += '|';
+        }
+        else{
+          printLine += ']';
+        }
+      });
+      console.log(printLine);
     }
   }
 }
