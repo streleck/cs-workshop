@@ -11,9 +11,23 @@ let tree = new Tree();
 
 tree.insert('jokic');
 
-console.log(tree);
+tree.insert('murray', tree.root);
 
 
+tree.insert('harris', tree.root);
+
+tree.insert('barton', tree.breadthFind('murray'));
+
+tree.insert('craig', tree.breadthFind('murray'));
+
+tree.insert('millsap', tree.breadthFind('harris'));
+
+tree.insert('plumlee', tree.breadthFind('harris'));
+
+
+
+
+console.log(tree.breadthFind('harris').children);
 
 
 

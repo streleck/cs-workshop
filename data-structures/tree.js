@@ -22,13 +22,13 @@ class Tree {
     return this;
   }
 
-  breadthFirstSearch(value){
+  breadthFind(value){
 
     let toVisit = new Queue();
-    return checkNode(this.root);
-
-    function checkNode(node){
-      if(node.value === value){
+    toVisit.enqueue(this.root);
+    while(toVisit.size > 0){
+      let node = toVisit.dequeue();
+      if(node.data === value){
         return node;
       }
       let replacementChildren = new Queue();
@@ -38,18 +38,24 @@ class Tree {
         replacementChildren.enqueue(child);
         child = node.children.dequeue();
       }
-      children = replacementChildren;
-      let nextNode = toVisit.dequeue();
-      if(!nextNode){
-        return false;
-      }
-      else{
-        return checkNode(nextNode);
-      }
-    }    
+      node.children = replacementChildren;
+    }
+    return false;
   }
 
+  print(root){
+    if(!root){
+      let root = this.root;
+    }
+    let queue = new Queue(root);
+    let separator = '|';
+    let depth = 0;
 
+    while(queue.size > 0){
+      let thisRow = depth + ') ';
+      let nextNode = queue.dequeue();
+    }
+  }
 
 }
 
