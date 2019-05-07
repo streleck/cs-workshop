@@ -4,23 +4,25 @@ const Stack = require('./data-structures/stack');
 const Queue = require('./data-structures/queue');
 const BinarySearchTree = require('./data-structures/binary-search-tree');
 const Tree = require('./data-structures/tree');
+const HashTable = require('./data-structures/hash-table');
+const Graph = require('./data-structures/graph');
+
+
+let graph = new Graph();
 
 
 
-let bst = new BinarySearchTree();
+graph.addEdge('Micah', 'Sebastian');
+graph.addEdge('Ben', 'Sebastian');
+graph.addEdge('Ben', 'Prem');
+graph.addEdge('Prem', 'Brent');
+graph.addEdge('Brent', 'Ben');
+graph.addEdge('Matt Moon', 'Andy');
+graph.addEdge('Andy', 'Emily');
+graph.addEdge('Rebecca', 'Emily');
+graph.addEdge('Emily', 'Mike');
+graph.addEdge('Matt Moon', 'Kerim');
+graph.addEdge('Matt Moon', 'Justin Moon');
+graph.addEdge('Kerim', 'Mike Bittinger');
 
-bst.insert(8);
-bst.insert(3);
-bst.insert(1);
-bst.insert(5);
-bst.insert(12);
-bst.insert(9);
-bst.insert(16);
-
-bst.getAllData().print();
-
-
-
-
-
-
+graph.breaththFirstSearch('Emily').print();
