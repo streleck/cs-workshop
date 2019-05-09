@@ -46,7 +46,7 @@ class Queue {
   forEach(callback){
     let node = this.first;
     while(node){
-      callback(node);
+      callback(node.data);
       node = node.next;
     }
   }
@@ -72,14 +72,9 @@ class Queue {
     else{
       let printLine = '[';
       this.forEach((node)=> {
-        printLine += node.data
-        if(node.next){
-          printLine += '|';
-        }
-        else{
-          printLine += ']';
-        }
+        printLine += node + ', ';
       });
+      printLine = printLine.substring(0, printLine.length -2) + ']';
       console.log(printLine);
     }
   }

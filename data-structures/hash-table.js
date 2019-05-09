@@ -1,3 +1,5 @@
+const Queue = require('./queue');
+
 class HashTable {
   constructor(size = 53){
     this.keyMap = new Array(size);
@@ -60,6 +62,17 @@ class HashTable {
         this.keyMap[index].splice(i, 1);
       }
     }
+  }
+
+  keys(){
+    let keyList = new Queue();
+    let trimmedKeymap = this.keyMap.filter((slot) => slot);
+    for(let index of trimmedKeymap){
+      for(let pair of index){
+        keyList.enqueue(pair[0]);
+      }
+    }
+    return keyList;
   }
 
   print(){
