@@ -1,3 +1,5 @@
+const LinkedList = require('../data-structures/singly-linked-list');
+
 function getDigit(num, digitPlace){
   return(Math.floor(num / (10 ** digitPlace)) % 10);
 }
@@ -23,9 +25,13 @@ function getMaxDigits(arr){
 function radixSort(arr){
   let numLoops = getMaxDigits(arr);
   for(let i=0; i<numLoops; i++){
-    let buckets = [[],[],[],[],[],[],[],[],[],[]];
+    //let buckets = [[],[],[],[],[],[],[],[],[],[]];
+    let buckets = new LinkedList();
+    for(let i=0; i<9; i++){
+      buckets.push(new LinkedList());
+    }
     for(let item of arr){
-      buckets[getDigit(item, i)].push(item);
+      buckets.get(getDigit(item, i)).push(item);
     }
     arr = buckets[0].concat(buckets[1]).concat(buckets[2]).concat(buckets[3]).concat(buckets[4]).concat(buckets[5]).concat(buckets[6]).concat(buckets[7]).concat(buckets[8]).concat(buckets[9]);
   }

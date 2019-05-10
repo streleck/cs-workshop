@@ -79,7 +79,7 @@ class DoublyLinkedList {
     return this;
   }
 
-  getNode(index){
+  _getNode(index){
     if(index >= this.length || index < (this.length * -1)){
       return undefined;
     }
@@ -103,12 +103,12 @@ class DoublyLinkedList {
   }
 
   get(index){
-    let node = this.getNode(index);
+    let node = this._getNode(index);
     return node ? node.data : undefined;
   }
 
   set(index, data){
-    let node = this.getNode(index);
+    let node = this._getNode(index);
     if(node){
       node.data = data;
       return this;
@@ -126,7 +126,7 @@ class DoublyLinkedList {
       return this.push(value);
     }
     else{
-      let afterNode = this.getNode(index);
+      let afterNode = this._getNode(index);
       if(!afterNode){
         return undefined;
       }
@@ -149,7 +149,7 @@ class DoublyLinkedList {
       return this.pop();
     }
     else{
-      let node = this.getNode(index);
+      let node = this._getNode(index);
       if(!node){
         return undefined;
       }

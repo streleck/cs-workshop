@@ -151,6 +151,44 @@ class SinglyLinkedList {
       return node.data;
     }
   }
-}
+  
+  forEach(callback){
+    let node = this.head;
+    while(node.next){
+      callback(node.data);
+      node = node.next;
+    }
+  }
 
+  reduce(callback){
+    let node = this.head;
+    while(node.next){
+      accumulator = callback(accumulator, node.data);
+      node = node.next;
+    }
+    return accumulator;
+  }
+
+  map(callback){
+    let mutatedList = new SinglyLinkedList();
+    let node = this.head;
+    while(node.next){
+      SinglyLinkedList.push(callback(node.data));
+      node = node.next;
+    }
+  }
+
+  concat(list){
+    this.forEach((node) => {
+      this.push(node);
+    })
+  }
+
+  print(){
+    let printString = '[';
+    this.forEach((node) => {
+      printString += 
+    })
+  }
+}
 module.exports = SinglyLinkedList;

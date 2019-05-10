@@ -69,13 +69,66 @@ class WeightedGraph {
     return result;
   }
 
-  // dijkstrasAlgo(start, end){
-  //   let previousStopTable = new HashTable();
-  //   let verticesToEvaluate = new PriorityQueue();
-  //   let alreadyVisited = new HashTable();
-  //   let shortestKnownLengths = new HashTable();
+  dijkstrasAlgorithm(start, end){
+    let previousStopTable = new HashTable();
+    let toEvaluate = new PriorityQueue();
+    let alreadyVisited = new HashTable();
+    let shortestKnownLengths = new HashTable();
 
-  // }
+    toEvaluate.enqueue(start, 0);
+    shortestKnownLengths.set(start, 0);
+ 
+    while(toEvaluate.size > 0){
+      // get next thing out of priority queue
+      let vertex = toEvaluate.dequeue();
+      // if visited, throw away 
+      if(alreadyVisited.get(vertex)){
+        continue;
+      }
+      // get the neighbors from the adjacency list
+      let neighbors = this.adjacencyList.get(vertex).keys();
+      // for each neighbor, calculate distances (currentVertex distance + weight)
+      neighbors.forEach((neighbor) => {
+        let distanceByThisPath = shortestKnownLengths.get(vertex) + this.adjacencyList.get(vertex).get(neighbor);
+        // if distance is lower than lowestdistance of that vertex, update table
+        // if new distance to that neighbor is lower, update previous stop table
+        if(distanceByThisPath < (shortestKnownLengths.get(neighbor) || Infinity) && neighbor !== start){
+          shortestKnownLengths.set(neighbor, distanceByThisPath);
+          previousStopTable.set(neighbor, vertex);
+          toEvaluate.enqueue(neighbor, distanceByThisPath);
+        }
+      })
+      alreadyVisited.set(vertex, true);
+    }
+    //if ending vertex was not found, return undefined
+
+    //make final path (a queue);
+    //make stack to store reversed path;
+
+    //using previous stop table
+    //shortestKnownLengths.print();
+    if(!end){
+      return previousStopTable;
+    }
+    else{
+      let path = new Queue();
+      let backwardsPath = new Stack();
+      let step = end;
+      backwardsPath.push(step);
+      while(step !== start){
+        step = previousStopTable.get(step);
+        if(!step){
+          return undefined;
+        }
+        backwardsPath.push(step);
+      }
+      let stops = backwardsPath.size;
+      for(let i=0; i<stops; i++){
+        path.enqueue(backwardsPath.pop());
+      }
+      return path;
+    }
+  }
 
   print(){
     let vertices = this.adjacencyList.keys();

@@ -10,32 +10,22 @@ const Graph = require('./data-structures/graph');
 const WeightedGraph = require('./data-structures/weighted-graph');
 
 
-// let graph = new WeightedGraph();
+let graph = new WeightedGraph();
 
-// graph.addEdge('Jason', 'Emily', 3);
-// graph.addEdge('Jason', 'Vianca', 5);
-// graph.addEdge('Mike', 'Vianca', 8);
-// graph.addEdge('Emily', 'Mike', 8);
-// graph.addEdge('Devin', 'Sebastian', 3);
-// graph.addEdge('Sebastian', 'Ben', 9);
-// graph.addEdge('Prem', 'Ben', 4);
-// graph.addEdge('Jared', 'Kate', 3);
+graph.addEdge('A', 'B', 5);
+graph.addEdge('B', 'D', 6);
+graph.addEdge('D', 'F', 1);
+graph.addEdge('D', 'E', 2);
+graph.addEdge('F', 'E', 4);
+graph.addEdge('C', 'E', 5);
+graph.addEdge('A', 'C', 2);
+graph.addEdge('A', 'F', 100);
 
-// graph.getConnectedVertices('Emily').print();
+graph.dijkstrasAlgorithm('A').print();
 
-let pq = new PriorityQueue();
 
-pq.enqueue('fif', 5);
-pq.enqueue('first', 1);
-pq.enqueue('second', 2);
-pq.enqueue('sixt', 6);
-pq.enqueue('third', 3);
-pq.enqueue('fourt', 4);
-pq.enqueue('sevent', 7);
 
-console.log(pq.dequeue());
-console.log(pq.dequeue());
-console.log(pq.dequeue());
 
-//console.log(pq);
-//pq.print();
+
+
+

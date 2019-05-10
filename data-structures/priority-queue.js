@@ -63,10 +63,12 @@ class PriorityQueue {
     if(parent.left === child){
       child.left = parent;
       child.right = parent.right;
+      if(parent.right) parent.right.parent = child;
     }
     else if(parent.right === child){
       child.right = parent;
       child.left = parent.left;
+      parent.left.parent = child;
     }
     else{
       throw new Error('Can only swap nodes that have a parent/child relationship. Those do not.');
@@ -114,8 +116,9 @@ class PriorityQueue {
 
   _simmaDown(){
     let node = this.first;
+    if(!node) return;
     while(node.left){
-      let smallerChild = node.left
+      let smallerChild = node.left;
       if(node.right && node.right.priority < node.left.priority){
         smallerChild = node.right;
       }
@@ -144,33 +147,50 @@ class PriorityQueue {
     let node = this.first;
     if(this.size === 1){
       this.first = null;
-      return node;
     }
-    // Move the last item to the top
-    let lastItem = this._getAtIndex(this.size);
-    if(lastItem.parent.right){
-      lastItem.parent.right = null;
+    else if(this.size <= 3){
+      if(node.right){
+        this.first = node.right;
+        this.first.parent = null;
+        this.first.left = node.left; 
+        this.first.right = null;
+        node.left.parent = this.first;
+      }
+      else{
+        this.first = node.left;
+        this.first.parent = null;
+        this.first.left = null; 
+        this.first.right = null;
+      }
     }
     else{
-      lastItem.parent.left = null;
+      // Move the last item to the top
+      let lastItem = this._getAtIndex(this.size);
+      lastItem.left = node.left;
+      lastItem.right = node.right;
+      node.left.parent = lastItem;
+      if(node.right) node.right.parent = lastItem;
+      if(lastItem.parent.right){
+        lastItem.parent.right = null;
+      }
+      else{
+        lastItem.parent.left = null;
+      }
+      lastItem.parent = null;
+      this.first = lastItem;
     }
-    lastItem.parent = null;
-    lastItem.left = node.left;
-    lastItem.right = node.right;
-    node.left.parent = lastItem;
-    node.right.parent = lastItem;
-    this.first = lastItem;
     //bubble down
     this._simmaDown();
     //finish detaching old 'first'
     node.right = null;
     node.left = null;
-    this.size--;
-    return node;
+    this.size -= 1;
+    return node.data;
   }
 
   print(){
     // since the root has index of 1, we start there
+    if(this.size < 1) console.log('nothing to see here!');
     for(let i=1; i<=this.size; i++){
       let node = this._getAtIndex(i);
       console.log(i + ')');
@@ -184,10 +204,16 @@ class PriorityQueue {
 
 }
 
-let priorityQ = new PriorityQueue()
+let pq = new PriorityQueue();
 
-priorityQ.enqueue('first', 1);
-priorityQ.enqueue('second', 2);
-priorityQ.enqueue('third', 3);
-priorityQ.enqueue('fourth', 4);
+pq.enqueue('first', 1);
+pq.enqueue('second', 2);
+pq.enqueue('third', 3);
+pq.enqueue('first2', 1);
+pq.enqueue('zeroth', 0);
+
+pq.dequeue();
+pq.dequeue();
+pq.dequeue();
+
 module.exports = PriorityQueue;
