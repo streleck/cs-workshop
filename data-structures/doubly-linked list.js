@@ -162,20 +162,67 @@ class DoublyLinkedList {
     }
   }
 
+  forEach(callback){
+    let node = this.head;
+    while(node){
+      callback(node.data);
+      node = node.next;
+    }
+    return this;
+  }
+
+  reduce(callback){
+    let node = this.head;
+    while(node){
+      accumulator = callback(accumulator, node.data);
+      node = node.next;
+    }
+    return accumulator;
+  }
+
+  map(callback){
+    let mutatedList = new LinkedList();
+    let node = this.head;
+    while(node){
+      mutatedList.push(callback(node.data));
+      node = node.next;
+    }
+    return mutatedList;
+  }
+
+  filter(callback){
+    let filteredList = new LinkedList();
+    let node = this.head;
+    while(node){
+      if(callback(node.data)){
+        filteredList.push(node.data);
+      }
+      node = node.next;
+    }
+    return filteredList;
+  }
+
+  concat(list){
+    list.forEach((node) => {
+      this.push(node);
+    });
+    return this;
+  }
+
   print(){
     if(this.length === 0){
-      console.log('This list is empty');
+      console.log('[]');
     }
-    else{
-      let node = this.head;
-      let index = 0;
-      console.log('length:', this.length);
-      while(node){
-        console.log(index + ':', node);
-        node = node.next;
-        index++;
+    let printString = '[';
+    this.forEach((node) => {
+      if(typeof(node) === 'string'){
+        node = '"' + node + '"';
       }
-    }
+      printString += node + ', ';
+    })
+    printString = printString.substring(0, printString.length -2);
+    printString += ']';
+    console.log(printString);
   }
 }
 

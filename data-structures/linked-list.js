@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class SinglyLinkedList {
+class LinkedList {
   constructor(datas){
     this.head = null;
     this.tail = null;
@@ -154,15 +154,17 @@ class SinglyLinkedList {
   
   forEach(callback){
     let node = this.head;
-    while(node.next){
+    while(node){
       callback(node.data);
       node = node.next;
     }
+    return this;
   }
 
   reduce(callback){
     let node = this.head;
-    while(node.next){
+    let accumulator = 0;
+    while(node){
       accumulator = callback(accumulator, node.data);
       node = node.next;
     }
@@ -170,25 +172,48 @@ class SinglyLinkedList {
   }
 
   map(callback){
-    let mutatedList = new SinglyLinkedList();
+    let mutatedList = new LinkedList();
     let node = this.head;
-    while(node.next){
-      SinglyLinkedList.push(callback(node.data));
+    while(node){
+      mutatedList.push(callback(node.data));
       node = node.next;
     }
+    return mutatedList;
+  }
+
+  filter(callback){
+    let filteredList = new LinkedList();
+    let node = this.head;
+    while(node){
+      if(callback(node.data)){
+        filteredList.push(node.data);
+      }
+      node = node.next;
+    }
+    return filteredList;
   }
 
   concat(list){
-    this.forEach((node) => {
+    list.forEach((node) => {
       this.push(node);
-    })
+    });
+    return this;
   }
 
   print(){
+    if(this.length === 0){
+      console.log('[]');
+    }
     let printString = '[';
     this.forEach((node) => {
-      printString += 
+      if(typeof(node) === 'string'){
+        node = '"' + node + '"';
+      }
+      printString += node + ', ';
     })
+    printString = printString.substring(0, printString.length -2);
+    printString += ']';
+    console.log(printString);
   }
 }
-module.exports = SinglyLinkedList;
+module.exports = LinkedList;
