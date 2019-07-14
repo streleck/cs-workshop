@@ -1,41 +1,44 @@
-// merges two sorted arrays
-function sortTwo(arr1, arr2){
-  const mergedArr = new Array(arr1.length + arr2.length);
-  for(let i = mergedArr.length-1; i >= 0; i--){
-    if(arr1.length === 0){
-      mergedArr[i] = arr2.pop();
+const LinkedList = require('../data-structures/linked-list');
+
+function sortTwo(list1, list2){
+  const mergedList = new LinkedList();
+  for(let i = 0; i < arr1.length + arr2.length; i--){
+    if(list1.length === 0){
+      mergedList.push = list2.pop();
     }
     else if(arr2.length === 0){
-      mergedArr[i] = arr1.pop();
+      mergedList.push = list2.pop();
     }
-    else if(arr2[arr2.length-1] > arr1[arr1.length-1]){
-      mergedArr[i] = arr2.pop();
+    else if(list2.tail.data > list1.tail.data){
+      mergedList.push() = list2.pop();
     }
     else{
-      mergedArr[i] = arr1.pop();
+      mergedList.push() = list1.pop();
     }
   }
-  return mergedArr;
+  return mergedList;
 };
 
-function splitArray(arr){
-  if(arr.length <= 1){
-    return arr;
+function splitList(list){
+  if(list.length <= 1){
+    return list;
   }
   else{
-    return [splitArray(arr.slice(0, Math.ceil(arr.length/2))), splitArray(arr.slice(Math.ceil(arr.length/2)))]
+    return new LinkedList(splitList(list.slice(0, Math.ceil(list.length/2))), splitList(list.slice(Math.ceil(list.length/2))));
   }
 };
 
-function merge(arr){
-  if(Array.isArray(arr[0][0])){
-    arr[0] = merge(arr[0][0], arr[0][1]);
-  }
-  if(Array.isArray(arr[1][0])){
-    arr[1] = merge(arr[1][0], arr[1][1]);
-  }
-  return sortTwo(arr[0], arr[1])
+function mergeSort(list){
+ // if list is a list of numbers, split
+ //
+ console.log('hey!!!!!!!!', list)
+ if(typeof(list.head.data === 'number')){
+   let splittedList = splitList(list);
+   return mergeSort(splittedList.head.data).concat(mergeSort(splittedList.tail.data));
+ }
+ else{
+   return sortTwo(list.head.data, list.tail.data);
+ }
 }
 
-
-console.log(mergeSort([3,4,3,6,2,8,2,5,3,7,8,8,8,2,43,124,54,124,65,12,52,762,5,83,32,1,3,5241,3]));
+module.exports = mergeSort;

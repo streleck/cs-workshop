@@ -1,4 +1,5 @@
 const Queue = require('./queue');
+const Stack = require('./stack');
 
 class Node {
   constructor(data){
@@ -73,6 +74,22 @@ class BinarySearchTree {
         }
       }
     }
+  }
+
+  getNthSmallest(n){
+    if(!this.root){
+      return undefined;
+    }
+    //find smallest
+    let path = new Stack();
+    let node = this.root;
+    while(node.left){
+      node = node.left;
+    }
+    const smallest = node;
+    //find next
+
+    
   }
 
   getAllData(root){

@@ -10,6 +10,7 @@ const Graph = require('./data-structures/graph');
 const WeightedGraph = require('./data-structures/weighted-graph');
 
 const radixSort = require('./sorting-algorithms/radix-sort');
+const mergeSort = require('./sorting-algorithms/merge-sort');
 
 
 // let graph = new WeightedGraph();
@@ -30,4 +31,4 @@ let list = new LinkedList(2, 3, 1, 234, 105, 54, 3265, 4444, 33, 73, 2);
 
 //list1.concat(list2).print();
 
-radixSort(list).print();
+mergeSort(list).print();

@@ -152,6 +152,31 @@ class LinkedList {
     }
   }
   
+  slice(start, end){
+    if(!end){
+      end = this.length -1;
+    }
+    if(start < 0){
+      start = this.length - start;
+    }
+    if(end < 0){
+      end = this.length - end;
+    }
+    if(start > end){
+      throw new Error('Cannot perform \'Slice\'. Starting cannot be after ending index');
+    }
+    if(start < 0 || end > this.length -1){
+      throw new Error('Index is not valid for this list');
+    }
+    let node = this.head;
+    let slicedList = new LinkedList();
+    for(let i=start; i<end; i++){
+      slicedList.push(node.data);
+      node = node.next;
+    }
+    return slicedList;
+  }
+  
   forEach(callback){
     let node = this.head;
     while(node){
